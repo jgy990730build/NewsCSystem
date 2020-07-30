@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-11-12 17:20:02 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.sise.jgy.bean.Category" table="category">
+        <id name="id" type="integer">
+            <column name="c_id" />
+            <generator class="native" />
+        </id>
+        <property name="category" type="string" length="12" not-null="true">
+            <column name="category" />
+        </property>
+        <set name="newses" cascade="all" fetch="join" inverse="true">
+            <key column="c_id"></key>
+            <one-to-many class="com.sise.jgy.bean.News"/>
+        </set>
+    </class>
+</hibernate-mapping>

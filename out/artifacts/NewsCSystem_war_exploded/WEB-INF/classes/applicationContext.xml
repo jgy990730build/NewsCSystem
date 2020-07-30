@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+	    http://www.springframework.org/aop/spring-aop.xsd">
+    <context:annotation-config/>
+    <context:component-scan base-package="com.sise.jgy"/>
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="txManager"/>
+    <!-- 配置数据源 -->
+    <bean id="dataSource"
+          class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://39.106.146.252:3306/lab"/>
+        <property name="username" value="lab"/>
+        <property name="password" value="JGYll5201314!"/>
+        <property name="maxTotal" value="100"/>
+        <property name="maxIdle" value="60"/>
+        <property name="maxWaitMillis" value="10000"/>
+    </bean>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+    </bean>
+    <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="hibernateDao" class="com.sise.jgy.impl.HibernateDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+<!--    <tx:annotation-driven transaction-manager="txManager"/>-->
+<!-- 事务管理 -->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="*" isolation="DEFAULT" propagation="REQUIRED" timeout="10"/>
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:pointcut id="myPointcut" expression="execution(* com.sise.jgy.service.C_N_Service.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="myPointcut"/>
+    </aop:config>
+
+
+<!--    <bean id="c_n_Service" class="com.sise.jgy.service.C_N_Service"/>-->
+    <bean id="categoryAction" class="com.sise.jgy.action.CategoryAction" scope="prototype"/>
+    <bean id="newsAction" class="com.sise.jgy.action.NewsAction" scope="prototype"/>
+    <bean id="userAction" class="com.sise.jgy.action.UserAction" scope="prototype"/>
+</beans>

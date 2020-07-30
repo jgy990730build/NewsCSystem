@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-11-12 17:20:02 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.sise.jgy.bean.User" table="user">
+        <id name="id" type="integer">
+            <column name="u_id" />
+            <generator class="native" />
+        </id>
+        <property name="username" type="string" length="12" not-null="true">
+            <column name="username" />
+        </property>
+        <property name="password" type="string" length="12" not-null="true">
+            <column name="password" />
+        </property>
+        <property name="sex" type="char" length="2">
+            <column name="sex" />
+        </property>
+        <property name="email" type="string" length="30">
+            <column name="email"/>
+        </property>
+        <property name="company" type="string" length="30">
+            <column name="company" />
+        </property>
+        <property name="role" type="string" length="20">
+            <column name="role" />
+        </property>
+    </class>
+</hibernate-mapping>

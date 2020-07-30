@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+		"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN" 
+		"http://struts.apache.org/dtds/struts-2.5.dtd" >
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<package name="NewsCSystem" extends="struts-default" namespace="/NewsCSystem">
+		<action name="*Category" class="categoryAction" method="{1}">
+			<result name="list">/WEB-INF/categoryList.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">listCategory</param>
+				<param name="namespace">/NewsCSystem</param>
+			</result>
+			<result name="update">/WEB-INF/categoryUpdate.jsp</result>
+			<allowed-methods>add,update,Find,delete,list</allowed-methods>
+		</action>
+		<action name="*News" class="newsAction" method="{1}">
+			<result name="add_news">/WEB-INF/News_release.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">findAllNews</param>
+				<param name="namespace">/NewsCSystem</param>
+			</result>
+			<result name="news_list">/WEB-INF/News_list.jsp</result>
+			<result name="find_one_news">/WEB-INF/show_News.jsp</result>
+			<result name="update">/WEB-INF/update_News.jsp</result>
+            <result name="list_byCategory">/WEB-INF/News_list.jsp</result>
+			<result name="index">/index.jsp</result>
+			<result name="show">/show_news_item.jsp</result>
+			<result name="showbyc">/show_news_by_catergy.jsp</result>
+			<result name="show_all_news">/show_news_all.jsp</result>
+			<result name="show_search_result">/show_news_for_search.jsp</result>
+			<result name="show_time_frame_result">/show_news_for_time_frame.jsp</result>
+			<allowed-methods>add,added,findAll,detele,findOne,update,updated,findbyC,index,show,showByC,showAllnews,showSearchResult,showTimeFrameResult</allowed-methods>
+		</action>
+		<action name="*User" class="userAction" method="{1}">
+			<result name="input">/login.jsp</result>
+			<result name="login">/WEB-INF/backdoor_index.jsp</result>
+			<result name="out">/index_loading.jsp</result>
+			<allowed-methods>login,loginout</allowed-methods>
+		</action>
+	</package>
+</struts>

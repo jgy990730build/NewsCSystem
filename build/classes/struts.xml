@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+		"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN" 
+		"http://struts.apache.org/dtds/struts-2.5.dtd" >
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<package name="NewsCSystem" extends="struts-default" namespace="/NewsCSystem">
+		<action name="*" class="com.sise.jgy.action.CategoryAction" method="{1}">
+			<result name="list">/categoryList.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">listCategory</param>
+				<param name="namespace">/NewsCSystem</param>
+			</result>
+			<result name="update">/categoryUpdate.jsp</result>
+			<allowed-methods>addCategory,updateCategory,FindCategory,deleteCategory,listCategory</allowed-methods>
+		</action>
+		<action name="newsRelease" class="com.sise.jgy.action.NewsAction" method="FindCategoryName">
+			<result name="list">/News_release.jsp</result>
+		</action>
+        <action name="news_add" class="com.sise.jgy.action.NewsAction" method="addNews">
+            <result name="success" type="redirect">news_find_all.action</result>
+        </action>
+        <action name="news_find_all" class="com.sise.jgy.action.NewsAction" method="findAllNews">
+            <result name="new_list">/News_list.jsp</result>
+        </action>
+        <action name="deleteNews" class="com.sise.jgy.action.NewsAction" method="deteleNews">
+            <result name="success" type="redirect">news_find_all.action</result>
+        </action>
+        <action name="findOneNews" class="com.sise.jgy.action.NewsAction" method="findOneNews">
+            <result name="success">/show_News.jsp</result>
+        </action>
+        <action name="updateNews" class="com.sise.jgy.action.NewsAction" method="updateNews">
+            <result name="success">/update_News.jsp</result>
+        </action>
+		<action name="updatedNews" class="com.sise.jgy.action.NewsAction" method="updatedNews">
+			<result name="update" type="redirect">news_find_all.action</result>
+		</action>
+		<action name="list_by_ca" class="com.sise.jgy.action.NewsAction" method="findNewByCategory">
+			<result name="list_byCategory">/News_list.jsp</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-11-12 17:20:02 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.sise.jgy.bean.News" table="news">
+        <id name="id" type="integer">
+            <column name="n_id" />
+            <generator class="native" />
+        </id>
+        <property name="title" type="string" length="12" not-null="true">
+            <column name="title" />
+        </property>
+        <property name="categoryName" type="string" length="12" not-null="true">
+            <column name="categoryName" />
+        </property>
+        <property name="content" type="string" length="3000">
+            <column name="content" />
+        </property>
+        <property name="sourceFor" type="string" length="255">
+            <column name="sourceFor"/>
+        </property>
+        <property name="issueTime" type="java.util.Date">
+            <column name="issueTime" />
+        </property>
+        <many-to-one name="category" class="com.sise.jgy.bean.Category" column="c_id" lazy="false"/>
+    </class>
+</hibernate-mapping>
